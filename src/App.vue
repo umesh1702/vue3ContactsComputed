@@ -1,7 +1,8 @@
 
 <template  >
-  <div id="app">
-  <h1 class="text-3xl font-bold ">{{ msg }}</h1>
+  <div class="bg-white text-black">
+    Contacts
+    <button @click="redirect()">Add Contacts</button>
 </div>
 </template>
 
@@ -10,7 +11,15 @@ export default{
   name : "app",
   data(){
     return{
-      msg:"hello world"
+      contacts:[
+        {firstName:"jin",lastName:"mori",phone:6303437951},
+        {firstName:"jin",lastName:"mori",phone:6303437952},
+        {firstName:"jin",lastName:"mori",phone:6303437953}]
+    }
+  },
+  methods:{
+    redirect(){
+      console.log('hello')
     }
   }
 }
