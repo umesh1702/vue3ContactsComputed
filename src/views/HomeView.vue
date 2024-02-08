@@ -1,38 +1,74 @@
 <template  >
-  <div class="w-[820px] h-full align-center bg-slate-50 mx-[600px]">
-  <div >
-    contacts
-    <button class=" ml-[650px] border-[1px] border-black hover:bg-gray-400 hover:text-white" @click="getlocalvalue">Add Contacts</button>
-  <router-view></router-view>
-  </div><br>
-  <hr><br><br>
-  <div class="grid gap-[40px] grid-cols-3 grid-rows-3 ">
-    <div class="bg-gray-400 text-center w-[250px] h-[100px] border-2 border-white" >{{ }}</div>
-    <div class="bg-gray-400 text-center w-[250px] h-[100px] border-2 border-white">2</div>
-    <div class="bg-gray-400 text-center w-[250px] h-[100px] border-2 border-white">3</div>
-    <div class="bg-gray-400 text-center w-[250px] h-[100px] border-2 border-white">4</div>
-    <div class="bg-gray-400 text-center w-[250px] h-[100px] border-2 border-white">5</div>
-    <div class="bg-gray-400 text-center w-[250px] h-[100px] border-2 border-white">6</div>
-    <div class="bg-gray-400 text-center w-[250px] h-[100px] border-2 border-white">7</div>
-    <div class="bg-gray-400 text-center w-[250px] h-[100px] border-2 border-white">8</div>
-    <div class="bg-gray-400 text-center w-[250px] h-[100px] border-2 border-white" @onclick="redirect()">+</div>
+  <div class="w-[820px] h-auto align-center bg-slate-50 mx-[600px]">
+    <div>
+      contacts
+      <button class=" ml-[650px] border-[1px] border-black hover:bg-gray-400 hover:text-white" @click="changepath">Add
+        Contacts</button>
+      <router-view></router-view>
+    </div><br>
+    <hr>
+    <input class="border-[1px] border-black " type="text" v-model="text" @input="searchoption(text)"
+      placeholder="Search Here">
+    <ul>
+      <div v-for="result in filtereddata" :key="result">
+        {{ result.firstName }} {{ result.lastName }} {{ result.phone }}
+      </div>
+    </ul>
+    <br><br>
+    <div class="grid gap-[40px] grid-cols-3 grid-rows-3 ">
+      <div v-for="(item, index) in dataArray" :key="index"
+        class="bg-gray-400 text-center w-[250px] h-auto border-2 border-white">{{ item.firstName }} {{ item.lastName }}
+        <br> {{ item.countrycode }} {{ item.phone }}
+        <br><button class="bg-white" @click="editbutton">edit</button> <button class="bg-white"
+          @click="deletebutton(item)"> delete </button>
+      </div>
+      <div class="bg-gray-400 text-center w-[250px] h-[100px] border-2 border-white" @click="changepath">+</div>
+    </div>
   </div>
-</div>
-
-<RouterView />
+  <RouterView />
 </template>
 
 <script setup>
+import { computed, onMounted } from 'vue';
+import { useRouter, useRoute } from 'vue-router'
+import { ref } from 'vue';
+//const arr =["firstName","lastName","countrycode","phone"]//let data=[]
+var dataArray = ref([])
+const route = useRoute()
+const router = useRouter()
+const text = ref("")
+onMounted(() => {
+  getlocalvalue()
+})
+const getlocalvalue = () => {
+  const storedData = JSON.parse(localStorage.getItem('person'))
+  dataArray.value = dataArray.value.concat(storedData)
+}
 
-const arr =["firstName","lastName","countrycode","phone"]
-let obj={}
-let arr1 =[]
-const getlocalvalue=()=>{
-    arr.forEach(item =>{    
-    let values = localStorage.getItem(`${item}`);
-    obj[`${item}`]=values
-        })
-arr1.push(obj)
-console.log(arr1)
-      }
-</script>
+const changepath = () => {
+  const redirectpath = route.query.redirect || "/contactDetails"
+  router.push(redirectpath)
+}
+const editbutton = () => {
+  const redirection = route.query.redirect || "/edit"
+  router.push(redirection)
+}
+const deletebutton = (item) => {
+  console.log(item)
+  dataArray.value = dataArray.value.filter((data) => data !== item)
+  localStorage.setItem("person", JSON.stringify(dataArray.value))
+}
+const filtereddata = computed(() => {
+  return (dataArray.value.filter((data) => {
+    if (JSON.parse(JSON.stringify(data)).firstName == text.value || JSON.parse(JSON.stringify(data)).lastName == text.value || JSON.parse(JSON.stringify(data)).phone == text.value) {
+      return (JSON.parse(JSON.stringify(data)).firstName == text.value)
+    }
+  }))
+})
+
+
+
+function searchoption(text) {
+  console.log(text)
+}
+</script>  
