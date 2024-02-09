@@ -1,24 +1,24 @@
 <template>
-  <div class="w-[820px] h-full align-center bg-slate-50 mx-[600px]">
+  <div class="w-[820px]  h-screen align-center bg-slate-50 mx-[600px]">
     <div>
-      contacts
+      <p> contacts</p>
       <button
         class="ml-[650px] border-[1px] border-black hover:bg-gray-400 hover:text-white"
         @click="redirect"
       >
-        Add Contacts
+      <p>  Add Contacts</p>
       </button>
       <router-view></router-view>
     </div>
     <br />
     <hr />
     <div>
-      Add New Contact
+    <p>  Add New Contact</p>
       <button class="bg-sky-500 text-white ml-[600px]" @click="setlocalvalue">Save</button>
     </div>
     <br />
 
-    First Name <br />
+    <p> First Name </p><br />
     <input
       class="w-[350px] border-[1px] border-black"
       v-model="firstName"
@@ -26,7 +26,7 @@
       placeholder="first name"
       required
     /><br />
-    lastName <br />
+   <p> lastName  </p><br />
     <input
       class="w-[350px] border-[1px] border-black"
       v-model="lastName"
@@ -35,7 +35,7 @@
       required
     />
     <br />
-    countrycode <br />
+   <p> countrycode </p> <br />
     <select
       class="w-[350px] border-[1px] border-black"
       v-model="countrycode"
@@ -47,7 +47,7 @@
         {{ option.label }}
       </option></select
     ><br />
-    phone <br />
+   <p> phone </p> <br />
     <input
       class="w-[350px] border-[1px] border-black"
       v-model="phone"
@@ -63,7 +63,7 @@ import { computed, ref } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { countries } from 'countries-list'
 
-console.log(countries['AE'].phone)
+
 const firstName = ref('')
 const lastName = ref('')
 const countrycode = ref('')

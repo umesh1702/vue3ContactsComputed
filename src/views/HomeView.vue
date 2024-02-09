@@ -1,5 +1,5 @@
 <template  >
-  <div class="w-[820px] h-auto align-center bg-slate-50 mx-[600px]">
+  <div class="w-[820px] h-screen align-center bg-slate-50 mx-[600px]">
     <div>
       contacts
       <button class=" ml-[650px] border-[1px] border-black hover:bg-gray-400 hover:text-white" @click="changepath">Add
@@ -7,7 +7,7 @@
       <router-view></router-view>
     </div><br>
     <hr>
-    <input class="border-[1px] border-black " type="text" v-model="text" @input="searchoption(text)"
+    <input class="border-[1px] border-black " type="text" v-model="text"
       placeholder="Search Here">
     <ul>
       <div v-for="result in filtereddata" :key="result">
@@ -19,7 +19,7 @@
       <div v-for="(item, index) in dataArray" :key="index"
         class="bg-gray-400 text-center w-[250px] h-auto border-2 border-white">{{ item.firstName }} {{ item.lastName }}
         <br> {{ item.countrycode }} {{ item.phone }}
-        <br><button class="bg-white" @click="editbutton">edit</button> <button class="bg-white"
+        <br><button class="bg-white" @click="editbutton(item.firstName,item.lastName,item.countrycode,item.phone,index)" >edit</button> <button class="bg-white"
           @click="deletebutton(item)"> delete </button>
       </div>
       <div class="bg-gray-400 text-center w-[250px] h-[100px] border-2 border-white" @click="changepath">+</div>
@@ -30,11 +30,10 @@
 
 <script setup>
 import { computed, onMounted } from 'vue';
-import { useRouter, useRoute } from 'vue-router'
+import { useRouter} from 'vue-router'
 import { ref } from 'vue';
 //const arr =["firstName","lastName","countrycode","phone"]//let data=[]
 var dataArray = ref([])
-const route = useRoute()
 const router = useRouter()
 const text = ref("")
 onMounted(() => {
@@ -46,12 +45,14 @@ const getlocalvalue = () => {
 }
 
 const changepath = () => {
-  const redirectpath = route.query.redirect || "/contactDetails"
+  const redirectpath = "/contactDetails"
   router.push(redirectpath)
 }
-const editbutton = () => {
-  const redirection = route.query.redirect || "/edit"
-  router.push(redirection)
+const editbutton = (firstName,lastName,countrycode,phone,index) => {
+  router.push({
+    name: "editing",
+    params:{firstName,lastName,countrycode,phone,index}
+  })
 }
 const deletebutton = (item) => {
   console.log(item)
@@ -66,9 +67,4 @@ const filtereddata = computed(() => {
   }))
 })
 
-
-
-function searchoption(text) {
-  console.log(text)
-}
 </script>  

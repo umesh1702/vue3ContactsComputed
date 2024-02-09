@@ -8,18 +8,21 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: HomeView
+      component: HomeView,
+      props:true
     },
     {
       path: '/contactDetails',
       name: 'contactDetails',
-      component: contactDetails
+      component: contactDetails,
+      props:true
      
     },
     {
-      path:"/edit",
+      path:"/edit/:firstName/:lastName/:countrycode/:phone/:index",
       name: "editing",
-      component: editing
+      component: editing,
+      props: true
     }
     
 
