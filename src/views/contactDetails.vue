@@ -1,20 +1,20 @@
 <template>
-  <div class="w-[820px]  h-screen align-center bg-slate-50 mx-[600px]">
-    <div>
-      <p> contacts</p>
-      <button
-        class="ml-[650px] border-[1px] border-black hover:bg-gray-400 hover:text-white"
-        @click="redirect"
-      >
-      <p>  Add Contacts</p>
-      </button>
+  <div class="mx-auto h-screen max-w-md bg-slate-50 md:max-w-2xl">
+    <div class=" flex flex-row place-content-between items-center py-[10px]">
+      <div class="place-content-start flex flex-row pl-[6px]">
+        <div><img src="../assets/Google_Contacts_icon.svg.png" alt="contacts-icon" class="h-6 w-6"> </div>
+        <div> My Contacts</div>
+      </div>
+      <div class="pr-[7px]"><button class="border-[1px] border-black hover:bg-gray-400 hover:text-white rounded-[4px]"
+          @click="changepath">Add
+          Contacts</button></div>
       <router-view></router-view>
     </div>
-    <br />
     <hr />
-    <div>
-    <p>  Add New Contact</p>
-      <button class="bg-sky-500 text-white ml-[600px]" @click="setlocalvalue">Save</button>
+  
+    <div class=" flex flex-row place-content-between items-center py-[10px]">
+    <div class="place-content-start flex flex-row pl-[6px]">Add New Contact</div>
+     <div class="pr-[7px]"><button class="bg-sky-500 text-white" @click="setlocalvalue">Save</button></div> 
     </div>
     <br />
 

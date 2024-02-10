@@ -1,29 +1,41 @@
 <template  >
   <div class="mx-auto h-screen max-w-md bg-slate-50 md:max-w-2xl">
-    <div class=" flex flex-row place-content-between">
-      <div class="place-content-start flex flex-row">
-      <div><img src="../assets/contacts-svgrepo-com.svg" alt="contacts-icon" class="h-6 w-6"> </div><div >contacts</div></div>
-      <div><button class="border-[1px] border-black hover:bg-gray-400 hover:text-white" @click="changepath">Add
-        Contacts</button></div>
+    <div class=" flex flex-row place-content-between items-center py-[10px]">
+      <div class="place-content-start flex flex-row pl-[6px]">
+        <div><img src="../assets/Google_Contacts_icon.svg.png" alt="contacts-icon" class="h-6 w-6"> </div>
+        <div> My Contacts</div>
+      </div>
+      <div class="pr-[7px]"><button class="border-[1px] border-black hover:bg-gray-400 hover:text-white rounded-[4px]"
+          @click="changepath">Add
+          Contacts</button></div>
       <router-view></router-view>
-    </div><br>
+    </div>
     <hr>
-    <input class="border-[1px] border-black " type="text" v-model="text"
-      placeholder="Search Here">
+    <br>
+
+    <div class="px-[10px]">
+      <input class="border-[2px] border-black w-full placeholder:text-black items-center text-[15px] pl-[5px]" type="text" v-model="text" placeholder="Search Contacts">
+    </div>
     <ul>
       <div v-for="result in filtereddata" :key="result">
         {{ result.firstName }} {{ result.lastName }} {{ result.phone }}
       </div>
     </ul>
     <br><br>
-    <div class="grid gap-[40px] grid-cols-3 grid-rows-3 ">
+
+    <div class="grid gap-[40px] grid-cols-3 grid-rows-3 pl-[4px] ">
       <div v-for="(item, index) in dataArray" :key="index"
-        class="bg-gray-400 text-center w-[250px] h-auto border-2 border-white">{{ item.firstName }} {{ item.lastName }}
+        class="bg-zinc-200 text-center w-auto h-auto border-2 ">
+        <div><img src="../assets/icons8-contacts-32.png" alt="contacts-icon" class="h-6 w-6"> </div>
+        {{ item.firstName }} {{ item.lastName }}
         <br> {{ item.countrycode }} {{ item.phone }}
-        <br><button class="bg-white" @click="editbutton(item.firstName,item.lastName,item.countrycode,item.phone,index)" >edit</button> <button class="bg-white"
-          @click="deletebutton(item)"> delete </button>
+        <br>
+        <div class="flex flex-row place-content-end gap-2"><button class="bg-white"
+          @click="editbutton(item.firstName, item.lastName, item.countrycode, item.phone, index)">edit</button> <button
+          class="bg-white" @click="deletebutton(item)"> delete </button>
+        </div>
       </div>
-      <div class="bg-gray-400 text-center w-[250px] h-[100px] border-2 border-white" @click="changepath">+</div>
+      <div class="bg-zinc-200 text-center w-auto h-auto border-2 border-white justify-items-center" @click="changepath">+</div>
     </div>
   </div>
   <RouterView />
@@ -31,7 +43,7 @@
 
 <script setup>
 import { computed, onMounted } from 'vue';
-import { useRouter} from 'vue-router'
+import { useRouter } from 'vue-router'
 import { ref } from 'vue';
 
 var dataArray = ref([])
@@ -49,10 +61,10 @@ const changepath = () => {
   const redirectpath = "/contactDetails"
   router.push(redirectpath)
 }
-const editbutton = (firstName,lastName,countrycode,phone,index) => {
+const editbutton = (firstName, lastName, countrycode, phone, index) => {
   router.push({
     name: "editing",
-    params:{firstName,lastName,countrycode,phone,index}
+    params: { firstName, lastName, countrycode, phone, index }
   })
 }
 const deletebutton = (item) => {
