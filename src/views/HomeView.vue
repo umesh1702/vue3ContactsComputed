@@ -17,8 +17,12 @@
       <input class="border-[2px] border-black w-full placeholder:text-black items-center text-[15px] pl-[5px]" type="text" v-model="text" placeholder="Search Contacts">
     </div>
     <ul>
+
       <div v-for="result in filtereddata" :key="result">
+        <div v-if="result">
         {{ result.firstName }} {{ result.lastName }} {{ result.phone }}
+        </div>
+        <div v-else>{{ msg }}</div>
       </div>
     </ul>
     <br><br>
@@ -49,6 +53,7 @@ import { ref } from 'vue';
 var dataArray = ref([])
 const router = useRouter()
 const text = ref("")
+const msg = ref("Not Found")
 onMounted(() => {
   getlocalvalue()
 })
@@ -73,11 +78,12 @@ const deletebutton = (item) => {
   localStorage.setItem("person", JSON.stringify(dataArray.value))
 }
 const filtereddata = computed(() => {
-  return (dataArray.value.filter((data) => {
-    if (JSON.parse(JSON.stringify(data)).firstName == text.value || JSON.parse(JSON.stringify(data)).lastName == text.value || JSON.parse(JSON.stringify(data)).phone == text.value) {
+  const data = (dataArray.value.filter((data) => {
       return (JSON.parse(JSON.stringify(data)).firstName == text.value)
-    }
+  
+    
   }))
+  return data
 })
-
+console.log(filtereddata)
 </script>  
