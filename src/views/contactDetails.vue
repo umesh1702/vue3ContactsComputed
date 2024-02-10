@@ -60,7 +60,7 @@
 </template>
 <script setup>
 import { computed, ref } from 'vue'
-import { useRouter, useRoute } from 'vue-router'
+import { useRouter} from 'vue-router'
 import { countries } from 'countries-list'
 
 
@@ -68,7 +68,6 @@ const firstName = ref('')
 const lastName = ref('')
 const countrycode = ref('')
 const phone = ref('')
-const route = useRoute()
 const router = useRouter()
 let dataArray = []
 let data = {}
@@ -107,7 +106,7 @@ const setlocalvalue = () => {
   }
 }
 const redirect = () => {
-  const redirectpath = route.query.redirect || '/'
+  const redirectpath = '/'
   console.log('Redirect Path:', redirectpath)
   router.push(redirectpath)
 }

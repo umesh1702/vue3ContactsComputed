@@ -1,9 +1,10 @@
 <template  >
-  <div class="w-[820px] h-screen align-center bg-slate-50 mx-[600px]">
-    <div>
-      contacts
-      <button class=" ml-[650px] border-[1px] border-black hover:bg-gray-400 hover:text-white" @click="changepath">Add
-        Contacts</button>
+  <div class="mx-auto h-screen max-w-md bg-slate-50 md:max-w-2xl">
+    <div class=" flex flex-row place-content-between">
+      <div class="place-content-start flex flex-row">
+      <div><img src="../assets/contacts-svgrepo-com.svg" alt="contacts-icon" class="h-6 w-6"> </div><div >contacts</div></div>
+      <div><button class="border-[1px] border-black hover:bg-gray-400 hover:text-white" @click="changepath">Add
+        Contacts</button></div>
       <router-view></router-view>
     </div><br>
     <hr>
@@ -32,7 +33,7 @@
 import { computed, onMounted } from 'vue';
 import { useRouter} from 'vue-router'
 import { ref } from 'vue';
-//const arr =["firstName","lastName","countrycode","phone"]//let data=[]
+
 var dataArray = ref([])
 const router = useRouter()
 const text = ref("")
