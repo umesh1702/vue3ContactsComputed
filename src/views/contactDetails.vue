@@ -1,66 +1,51 @@
 <template>
-  <div class="mx-auto h-screen max-w-md bg-slate-50 md:max-w-2xl">
-    <div class=" flex flex-row place-content-between items-center py-[10px]">
-      <div class="place-content-start flex flex-row pl-[6px]">
-        <div><img src="../assets/Google_Contacts_icon.svg.png" alt="contacts-icon" class="h-6 w-6"> </div>
-        <div> My Contacts</div>
+  <div class="mx-auto h-screen max-w-md bg-slate-50 md:max-w-2xl p-4">
+    <div class="flex flex-col md:flex-row justify-between items-center py-2">
+      <div class="flex items-center">
+        <img src="../assets/Google_Contacts_icon.svg.png" alt="contacts-icon" class="h-6 w-6">
+        <div class="ml-2">My Contacts</div>
       </div>
-      <div class="pr-[7px]"><button class="border-[1px] border-black hover:bg-gray-400 hover:text-white rounded-[4px]"
-          @click="changepath">Add
-          Contacts</button></div>
+      <div class="mt-2 md:mt-0"><button
+          class="border-[1px] border-black hover:bg-gray-400 hover:text-white rounded-[4px]">Add Contacts</button></div>
       <router-view></router-view>
     </div>
-    <hr />
-  
-    <div class=" flex flex-row place-content-between items-center py-[10px]">
-    <div class="place-content-start flex flex-row pl-[6px]">Add New Contact</div>
-     <div class="pr-[7px]"><button class="bg-sky-500 text-white" @click="setlocalvalue">Save</button></div> 
+    <hr class="my-2" />
+    <div class="flex place-content-between">
+      <div class="pl-[10px]">Add New Contact</div>
+      <div class="pr-[10px]"><button class="bg-sky-500 text-white " @click="setlocalvalue">Save</button></div>
     </div>
-    <br />
+    <br><br>
+    <div class="flex flex-col md:flex-row gap-3">
+      <div class="w-full md:w-1/2">
+        <label for="firstName">FirstName <span class="text-red-500">*</span></label><br>
+        <input class="w-full border-[1px] border-black" v-model="firstName" type="text" placeholder="First name"
+          required />
+      </div>
+      <div class="w-full md:w-1/2">
+        <label for="lastName">LastName <span class="text-red-500">*</span></label><br>
+        <input class="w-full border-[1px] border-black" v-model="lastName" type="text" placeholder="Last name" required />
+      </div>
+    </div>
 
-    <p> First Name </p><br />
-    <input
-      class="w-[350px] border-[1px] border-black"
-      v-model="firstName"
-      type="text"
-      placeholder="first name"
-      required
-    /><br />
-   <p> lastName  </p><br />
-    <input
-      class="w-[350px] border-[1px] border-black"
-      v-model="lastName"
-      type="text"
-      placeholder="last name"
-      required
-    />
-    <br />
-   <p> countrycode </p> <br />
-    <select
-      class="w-[350px] border-[1px] border-black"
-      v-model="countrycode"
-      type="text"
-      placeholder="country code name"
-      required
-    >
-      <option v-for="option in countryOptions" :key="option" :value="option.value">
-        {{ option.label }}
-      </option></select
-    ><br />
-   <p> phone </p> <br />
-    <input
-      class="w-[350px] border-[1px] border-black"
-      v-model="phone"
-      type="tel"
-      placeholder="phone"
-      required
-      pattern="[0-9]{10}"
-    />
+    <div class="flex flex-col md:flex-row gap-3">
+      <div class="w-full md:w-1/2">
+        <label for="countrycode">Country Code <span class="text-red-500">*</span></label><br>
+        <select class="w-full border-[1px] border-black" v-model="countrycode" required>
+          <option v-for="option in countryOptions" :key="option" :value="option.value">{{ option.label }}</option>
+        </select>
+      </div>
+      <div class="w-full md:w-1/2">
+        <label for="phone">Phone <span class="text-red-500">*</span></label><br>
+        <input class="w-full border-[1px] border-black" v-model="phone" type="tel" placeholder="Phone" required
+          pattern="[0-9]{10}" />
+      </div>
+    </div>
   </div>
 </template>
+
 <script setup>
 import { computed, ref } from 'vue'
-import { useRouter} from 'vue-router'
+import { useRouter } from 'vue-router'
 import { countries } from 'countries-list'
 
 
@@ -72,6 +57,7 @@ const router = useRouter()
 let dataArray = []
 let data = {}
 const arr = ['firstName', 'lastName', 'countrycode', 'phone']
+const storedData = JSON.parse(localStorage.getItem('person'))
 
 const setlocalvalue = () => {
   if (
@@ -81,9 +67,8 @@ const setlocalvalue = () => {
     countrycode.value == null
   ) {
     alert('fill all the fields')
-  } else {
-    const storedData = JSON.parse(localStorage.getItem('person'))
-    console.log(storedData)
+  }
+  else {
     if (storedData !== null) {
       dataArray = dataArray.concat(storedData)
       arr.forEach((item) => {
