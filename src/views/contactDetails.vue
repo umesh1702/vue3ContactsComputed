@@ -59,15 +59,34 @@ let data = {}
 const arr = ['firstName', 'lastName', 'countrycode', 'phone']
 const storedData = JSON.parse(localStorage.getItem('person'))
 
+function duplicateVerification(){
+  const duplicates =storedData.filter((data)=>{
+      if(firstName.value === data.firstName &&
+    lastName.value === data.lastName &&
+    phone.value === data.phone &&
+    countrycode.value == data.countrycode){
+      return data
+    }
+    })
+    return duplicates
+}
+
 const setlocalvalue = () => {
+  const result= duplicateVerification()
+  console.log(result)
   if (
-    firstName.value == '' ||
-    lastName.value == '' ||
-    phone.value == null ||
+    firstName.value === '' ||
+    lastName.value === '' ||
+    phone.value === null ||
     countrycode.value == null
   ) {
     alert('fill all the fields')
   }
+  else if(result.length !== 0){
+    alert("contact alredy exist")
+    redirect()
+  }
+
   else {
     if (storedData !== null) {
       dataArray = dataArray.concat(storedData)
@@ -75,24 +94,20 @@ const setlocalvalue = () => {
         data[`${item}`] = eval(item).value
       })
       dataArray.push(data)
-      console.log(dataArray)
       localStorage.setItem('person', JSON.stringify(dataArray))
       redirect()
     } else {
       arr.forEach((item) => {
         data[`${item}`] = eval(item).value
       })
-      console.log(dataArray)
-      dataArray.push(data)
-      console.log(dataArray)
-      localStorage.setItem('person', JSON.stringify(dataArray))
-      redirect()
+    dataArray.push(data)
+    localStorage.setItem('person', JSON.stringify(dataArray))
+    redirect()
     }
   }
 }
 const redirect = () => {
   const redirectpath = '/'
-  console.log('Redirect Path:', redirectpath)
   router.push(redirectpath)
 }
 

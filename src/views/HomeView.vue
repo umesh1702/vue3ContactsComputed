@@ -19,19 +19,19 @@
 
     <div class="px-[10px]">
       <input class="border-[2px] border-black w-full placeholder:text-black items-center text-[15px] pl-[5px]" type="text"
-        v-model="text" placeholder="Search Contacts" />
+        v-model="text" placeholder="Search Contacts" @input="searchbar()" />
     </div>
-    <ul>
-      <li v-if="filtereddata.length > 0" v-for="result in filtereddata" :key="result.phone">
-        <div>{{ result.firstName }} {{ result.lastName }} {{ result.phone }}</div>
+    <ul class="hidden" id="searchbar">
+      <li  v-if="filtereddata.length > 0" >
+        <div v-for="result in filtereddata" :key="result.phone">{{ result.firstName }}-{{ result.lastName }}-{{ result.phone }}</div>
       </li>
       <li v-else>
-        <p>not found</p>
+        not found
       </li>
     </ul>
     <br /><br />
 
-    <div class="grid gap-[40px] grid-cols-3 grid-rows-3 pl-[4px]">
+    <div class="grid gap-[40px] grid-cols-3 grid-rows-3 px-[4px]">
       <div v-for="(item, index) in dataArray" :key="index" class="bg-zinc-200 text-center w-auto h-auto border-2">
         <div>
           <img src="../assets/icons8-contacts-32.png" alt="contacts-icon" class="h-6 w-6" />
@@ -47,7 +47,7 @@
           <button class="bg-red-200" @click="deletebutton(item)">delete</button>
         </div>
       </div>
-      <div class="bg-zinc-200 text-center h-auto w-auto  border-2 border-white flex flex-col justify-end"
+      <div class="bg-zinc-200 text-center  flex flex-col justify-end"
         @click="changepath">
         <div class="m-auto">
           +
@@ -66,9 +66,20 @@ import { ref } from 'vue'
 var dataArray = ref([])
 const router = useRouter()
 const text = ref('')
+
 onMounted(() => {
+  console.log(document.getElementById("searchbar").className)
   getlocalvalue()
 })
+function searchbar(){
+  document.getElementById("searchbar").className="none"
+  setTimeout(()=>{
+    if(document.getElementById("searchbar").value === ""){
+    document.getElementById("searchbar").className="hidden"}
+  },2000)
+}
+
+
 const getlocalvalue = () => {
   const storedData = JSON.parse(localStorage.getItem('person'))
   dataArray.value = dataArray.value.concat(storedData)
