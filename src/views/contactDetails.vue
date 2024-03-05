@@ -56,7 +56,6 @@ const phone = ref('')
 const router = useRouter()
 let dataArray = []
 let data = {}
-const arr = ['firstName', 'lastName', 'countrycode', 'phone']
 const storedData = JSON.parse(localStorage.getItem('person'))
 
 function duplicateVerification(){
@@ -90,18 +89,20 @@ const setlocalvalue = () => {
   else {
     if (storedData !== null) {
       dataArray = dataArray.concat(storedData)
-      arr.forEach((item) => {
-        data[`${item}`] = eval(item).value
-      })
+      data.firstName = firstName.value
+      data.lastName = lastName.value
+      data.countrycode = countrycode.value
+      data.phone = phone.value
       dataArray.push(data)
       localStorage.setItem('person', JSON.stringify(dataArray))
       redirect()
     } else {
-      arr.forEach((item) => {
-        data[`${item}`] = eval(item).value
-      })
-    dataArray.push(data)
-    localStorage.setItem('person', JSON.stringify(dataArray))
+      data.firstName = firstName.value
+      data.lastName = lastName.value
+      data.countrycode = countrycode.value
+      data.phone = phone.value
+      dataArray.push(data)
+      localStorage.setItem('person', JSON.stringify(dataArray))
     redirect()
     }
   }

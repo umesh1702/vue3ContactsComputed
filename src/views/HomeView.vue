@@ -32,14 +32,16 @@
     <br /><br />
 
     <div class="grid gap-[40px] grid-cols-3 grid-rows-3 px-[4px]">
-      <div v-for="(item, index) in dataArray" :key="index" class="bg-zinc-200 text-center w-auto h-auto border-2">
+      <div v-for="(item, index) in dataArray" :key="index" class="bg-zinc-200 text-center w-auto h-[124px] border-2 relative">
         <div>
           <img src="../assets/icons8-contacts-32.png" alt="contacts-icon" class="h-6 w-6" />
         </div>
         {{ item.firstName }} {{ item.lastName }} <br />
-        {{ item.countrycode }} {{ item.phone }}
-        <br />
-        <div class="flex flex-row place-content-end gap-2">
+        {{ item.countrycode }} {{ item.phone }} <br />
+        <div class="flex absolute right-0 bottom-0 gap-2">
+          <button @click="copyToClipboard(item.phone)">
+            <img src="../assets/mdi--content-copy.svg" alt="copy-icon" class="h-4 w-4" />
+          </button>
           <button class="bg-white"
             @click="editbutton(item.firstName, item.lastName, item.countrycode, item.phone, index)">
             edit
@@ -106,5 +108,8 @@ const filtereddata = computed(() => {
   })
   return data
 })
-console.log(filtereddata)
+const copyToClipboard = (phone) =>{
+  alert("Phone number has been copied to clipboard")
+  navigator.clipboard.writeText(phone)
+}
 </script>
