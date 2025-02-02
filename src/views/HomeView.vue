@@ -57,7 +57,6 @@
       </div>
     </div>
   </div>
-  <RouterView />
 </template>
 
 <script setup>
@@ -83,7 +82,7 @@ function searchbar(){
 
 
 const getlocalvalue = () => {
-  const storedData = JSON.parse(localStorage.getItem('person'))
+  const storedData = JSON.parse(localStorage.getItem('person')) || []
   dataArray.value = dataArray.value.concat(storedData)
 }
 
