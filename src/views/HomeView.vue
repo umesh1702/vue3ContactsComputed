@@ -1,18 +1,18 @@
 <template>
   <div class="mx-auto h-screen max-w-md bg-slate-50 md:max-w-2xl">
-    <div class="flex flex-row place-content-between items-center py-[10px]">
-      <div class="place-content-start flex flex-row pl-[6px]">
+    <div class="flex items-center p-2">
+      <div class="flex item-center gap-2">
         <div>
           <img src="../assets/Google_Contacts_icon.svg.png" alt="contacts-icon" class="h-6 w-6" />
         </div>
         <div>My Contacts</div>
       </div>
-      <div class="pr-[7px]">
-        <button class="border-[1px] border-black hover:bg-gray-400 hover:text-white rounded-[4px]" @click="changepath">
+      <div class="grow" />
+      <div class="">
+        <button class="border-2 border-black hover:bg-gray-400 hover:text-white rounded-md p-1" @click="changepath">
           Add Contacts
         </button>
       </div>
-      <router-view></router-view>
     </div>
     <hr />
     <br />
@@ -42,11 +42,11 @@
           <button @click="copyToClipboard(item.phone)">
             <img src="../assets/mdi--content-copy.svg" alt="copy-icon" class="h-4 w-4" />
           </button>
-          <button class="bg-white"
+          <button class="bg-white p-1 rounded-md"
             @click="editbutton(item.firstName, item.lastName, item.countrycode, item.phone, index)">
             edit
           </button>
-          <button class="bg-red-200" @click="deletebutton(item)">delete</button>
+          <button class="bg-red-200 p-1 rounded-md" @click="deletebutton(item)">delete</button>
         </div>
       </div>
       <div class="bg-zinc-200 text-center  flex flex-col justify-end"

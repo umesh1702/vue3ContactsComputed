@@ -12,31 +12,31 @@
     <hr class="my-2" />
     <div class="flex place-content-between">
       <div class="pl-[10px]">Add New Contact</div>
-      <div class="pr-[10px]"><button class="bg-sky-500 text-white " @click="setlocalvalue">Save</button></div>
+      <div class="pr-[10px]"><button class="bg-sky-500 text-white p-1 rounded-md " @click="setlocalvalue">Save</button></div>
     </div>
     <br><br>
     <div class="flex flex-col md:flex-row gap-3">
       <div class="w-full md:w-1/2">
         <label for="firstName">FirstName <span class="text-red-500">*</span></label><br>
-        <input class="w-full border-[1px] border-black" v-model="firstName" type="text" placeholder="First name"
+        <input class="w-full border-[1px] border-black p-1" v-model="firstName" type="text" placeholder="First name"
           required />
       </div>
       <div class="w-full md:w-1/2">
         <label for="lastName">LastName <span class="text-red-500">*</span></label><br>
-        <input class="w-full border-[1px] border-black" v-model="lastName" type="text" placeholder="Last name" required />
+        <input class="w-full border-[1px] border-black p-1" v-model="lastName" type="text" placeholder="Last name" required />
       </div>
     </div>
 
     <div class="flex flex-col md:flex-row gap-3">
       <div class="w-full md:w-1/2">
         <label for="countrycode">Country Code <span class="text-red-500">*</span></label><br>
-        <select class="w-full border-[1px] border-black" v-model="countrycode" required>
+        <select class="w-full border-[1px] border-black p-1" v-model="countrycode" required>
           <option v-for="option in countryOptions" :key="option" :value="option.value">{{ option.label }}</option>
         </select>
       </div>
       <div class="w-full md:w-1/2">
         <label for="phone">Phone <span class="text-red-500">*</span></label><br>
-        <input class="w-full border-[1px] border-black" v-model="phone" type="tel" placeholder="Phone" required
+        <input class="w-full border-[1px] border-black p-1" v-model="phone" type="tel" placeholder="Phone" required
           pattern="[0-9]{10}" />
       </div>
     </div>
@@ -56,7 +56,7 @@ const phone = ref('')
 const router = useRouter()
 let dataArray = []
 let data = {}
-const storedData = JSON.parse(localStorage.getItem('person'))
+const storedData = JSON.parse(localStorage.getItem('person')) || []
 
 function duplicateVerification(){
   const duplicates =storedData.filter((data)=>{
